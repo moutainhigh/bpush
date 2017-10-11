@@ -1,0 +1,60 @@
+package message;
+option java_package = "com.beyondmap.bpush.protobuf";
+option java_multiple_files = true;
+
+message PBAPNSUserInfo {
+    required string key = 1;
+    required string value = 2;
+}
+
+message PBAPNSBody {
+    optional string alert = 1;
+    optional string sound = 2;
+    optional int32 badge = 3;
+}
+
+message PBAPNSMessage {
+
+    enum OfflineModes {
+        Ignore = 0;
+        APNS = 1;
+        SendAfterOnline = 2;
+    }
+
+    enum APNSModes {
+        All = 0;
+        Signined = 1;
+    }
+
+    optional int32 offlineMode = 1;
+    required PBAPNSBody aps = 2;
+    repeated PBAPNSUserInfo userInfo = 3;
+    optional int32 apnsMode = 4;
+}
+
+message PBAPNSEvent {
+
+    enum Ops {
+        Online = 1;
+        KeepAlive = 2;
+        PushAck = 3;
+        Offline = 4;
+        Error = 0;
+        Sleep = 5;
+        Awake = 6;
+    }
+
+    enum DeviceTypes{
+        iPhone = 1;
+        iPad = 2;
+        Android = 3;
+    }
+
+    required int32 op = 1;
+    required string token = 2;
+    required string appKey = 3;
+    required string userId = 4;
+    required int32 typeId = 5;
+    optional int32 read = 6;
+    optional string deviceId = 7;
+}
